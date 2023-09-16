@@ -21,16 +21,23 @@ export default function Card() {
   const addCourse = (data) => {
     const isFind = clickCourse.find((item) => item.id === data.id);
 
+    // multiple data  check
     if (isFind) {
       return notify("This Course already has been added");
-    } else {
+    } 
+    else {
+      // price and credit calculation
       const newCredit = totalCredit + data.credit_hours;
       const newCreditRemaining = creditRemaining - data.credit_hours;
       const newPrice = totalPrice + data.price;
 
+      // remaining credit check
       if (newCreditRemaining < 0) {
         return notify("You don't have enough credit");
-      } else {
+      } 
+      
+      else {
+        // update in all state
         setTotalCredit(newCredit);
         setCreditRemaining(newCreditRemaining);
         setClickCourse([...clickCourse, data]);
