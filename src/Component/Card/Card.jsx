@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import Cart from "../Cart/Cart";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 export default function Card() {
   const [allCourse, setallCourse] = useState([]);
   const [clickCourse, setClickCourse] = useState([]);
@@ -13,25 +16,25 @@ export default function Card() {
       .then((data) => setallCourse(data));
   }, []);
 
+  const notify = (text) => toast.error(text);
+
   const addCourse = (data) => {
     const isFind = clickCourse.find((item) => item.id === data.id);
 
     if (isFind) {
-      return alert("booked");
-    } 
-    else {
+      return notify("This Course already has been added");
+    } else {
       const newCredit = totalCredit + data.credit_hours;
       const newCreditRemaining = creditRemaining - data.credit_hours;
-      const newPrice = totalPrice+ data.price 
+      const newPrice = totalPrice + data.price;
 
       if (newCreditRemaining < 0) {
-        return alert("no credit");
-      } 
-      else {
+        return notify("You don't have enough credit");
+      } else {
         setTotalCredit(newCredit);
         setCreditRemaining(newCreditRemaining);
         setClickCourse([...clickCourse, data]);
-        setTotalPrice(newPrice)
+        setTotalPrice(newPrice);
       }
     }
   };
@@ -79,7 +82,6 @@ export default function Card() {
           </div>
         ))}
       </div>
-
       <div className="cart-container w-full md:w-1/2 lg:w-1/3">
         <Cart
           clickCourse={clickCourse}
@@ -88,6 +90,7 @@ export default function Card() {
           totalPrice={totalPrice}
         ></Cart>
       </div>
+      <ToastContainer position="bottom-right" autoClose={2000} theme="dark"/>
     </div>
   );
 }

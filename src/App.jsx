@@ -1,12 +1,11 @@
 // import { useEffect, useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+// import reactLogo from "./assets/react.svg";
+// import viteLogo from "/vite.svg";
+
 import "./App.css";
 import Card from "./Component/Card/Card";
-// import Cart from "./Component/Cart/Cart";
 
-function App() {
-
+function App() { 
 
   return (
     <>
@@ -15,7 +14,6 @@ function App() {
       </h1>
 
       <Card></Card>
-      {/* <Cart></Cart> */}
     </>
   );
 }
